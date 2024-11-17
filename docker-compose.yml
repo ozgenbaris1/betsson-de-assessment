@@ -31,3 +31,12 @@ services:
     depends_on:
       database:
         condition: service_healthy
+
+  invoice-transform:
+    build:
+      dockerfile: ./build/invoice-transform/Dockerfile
+    command: run
+    env_file: .env
+    depends_on:
+      invoice-extract-load:
+        condition: service_completed_successfully
