@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "invoice-extract-load"
+version = "0.1.0"
+description = ""
+authors = ["Baris Ozgen"]
+
+packages = [{ include = "invoice_extract_load" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyodbc = "^5.2.0"
+pandas = "^2.2.3"
+requests = "^2.32.3"
+sqlalchemy = "^2.0.36"
+click = "^8.1.7"
+
+[tool.poetry.scripts]
+pipeline = "invoice_extract_load.main:cli"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.8.0"
+ipykernel = "^6.29.5"
+python-dotenv = "^1.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -16,3 +16,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  invoice-extract-load:
+    build:
+      context: ./src/invoice-extract-load
+      dockerfile: ../../build/invoice-extract-load/Dockerfile
+    command:
+      [
+        "start",
+        "--from",
+        "https://grnhse-use1-prod-s1-ghr.s3.amazonaws.com/generic_attachments/attachments/002/581/924/original/Invoices_Year_2009-2010.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVQGOLGY373LJL5PF%2F20241112%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241112T153855Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=d0d0a05c1f2589f52bb9bfdd9f45e6a11730717fbb6d7214027c57135d77ec6c",
+      ]
+    env_file: .env
+    depends_on:
+      database:
+        condition: service_healthy
