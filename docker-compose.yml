@@ -1,0 +1,18 @@
+services:
+  database:
+    container_name: mssql
+    build:
+      context: build/database
+    environment:
+      ACCEPT_EULA: "Y"
+    env_file: .env
+    ports:
+      - 1433:1433
+    volumes:
+      - .volumes/mssql:/var/opt/mssql
+    restart: always
+    healthcheck:
+      test: '/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U ${MSSQL_USER} -P ${MSSQL_PASSWORD} -Q "SELECT 1"'
+      interval: 10s
+      timeout: 5s
+      retries: 5
